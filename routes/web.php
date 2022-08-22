@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\V1\JavaController;
+use App\Http\Controllers\Api\V1\DigiflazzController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Route::get('java/isi-pulsa', function(){ return csrf_token();});
+Route::post('java/isi-pulsa', [JavaController::class,'isiPulsa']);
+
+// Route::get('digiflazz/isi-pulsa', function(){ return csrf_token();});
+Route::post('digiflazz/isi-pulsa', [DigiflazzController::class,'isiPulsa']);
