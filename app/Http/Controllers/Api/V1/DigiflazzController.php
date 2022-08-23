@@ -11,9 +11,10 @@ class DigiflazzController extends Controller
         $json_data = json_decode($request->getContent());
         $data = [
             "username" => $json_data->username,
-            "buyer_sku_code" => $json_data->buyer_sku_code,
-            "customer_no" => $json_data->customer_no,
+            "commands" => "topup",
             "ref_id" => $json_data->ref_id,
+            "hp" => $json_data->hp,
+            "pulsa_code" => $json_data->pulsa_code,
             "sign" => $json_data->sign
         ];
         $curl = curl_init();
