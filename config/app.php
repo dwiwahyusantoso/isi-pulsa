@@ -212,4 +212,28 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Java h2h Configuration
+    |--------------------------------------------------------------------------
+    |
+    */
+
+    'java_config' => [
+        'user_id' => env('JAVA_USER_ID'),
+        'key' => env('JAVA_KEY'),
+        'secret' => env('JAVA_SECRET'),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Digiflazz h2h Configuration
+    |--------------------------------------------------------------------------
+    |
+    */
+
+    'digiflazz_config' => [
+        'username' => env('DIGIFLAZZ_USERNAME'),
+        'apikey' => env('DIGIFLAZZ_APIKEY'),
+    ],
 ];

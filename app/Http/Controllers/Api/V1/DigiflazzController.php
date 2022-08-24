@@ -9,13 +9,16 @@ class DigiflazzController extends Controller
 {
     function isiPulsa(Request $request) {
         $json_data = json_decode($request->getContent());
+        $username = config('app.digiflazz_config.username');
+        $api_key = config('app.digiflazz_config.apikey');
+        $sign = md5($username+$api_key+'ref_id');
         $data = [
-            "username" => $json_data->username,
+            "username" => $username,
             "commands" => "topup",
             "ref_id" => $json_data->ref_id,
             "hp" => $json_data->hp,
             "pulsa_code" => $json_data->pulsa_code,
-            "sign" => $json_data->sign
+            "sign" => $sign
         ];
         $curl = curl_init();
 

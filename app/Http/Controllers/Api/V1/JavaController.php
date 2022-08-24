@@ -9,17 +9,20 @@ class JavaController extends Controller
 {
     function isiPulsa( Request $request )
     {
-        $config = $request->header();
         $url = 'https://javah2h.com/api/connect/';
-        $header = array(
-            'h2h-userid: '. $config['h2h-userid'][0],
-            'h2h-key: '. $config['h2h-key'][0], // lihat hasil autogenerate di member area
-            'h2h-secret: '. $config['h2h-secret'][0], // lihat hasil autogenerate di member area
-        );
+        $user_id = config('app.java_config.user_id');
+        $key = config('app.java_config.key');
+        $secret = config('app.java_config.secret');
+
+        $header = [
+            "h2h-userid: $user_id",
+            "h2h-key: $key", // lihat hasil autogenerate di member area
+            "h2h-secret: $secret", // lihat hasil autogenerate di member area
+        ];
         
         $json_data = json_decode($request->getContent());
         $data = array(
-            'inquiry' => $json_data->inquiry, // konstan
+            'inquiry' => 'I', // konstan
             'code' => $json_data->code, // kode produk
             'phone' => $json_data->phone, // nohp pembeli
             'trxid_api' => $json_data->trxid_api, // Trxid / Reffid dari sisi client
