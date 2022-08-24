@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class JavaController extends Controller
 {
@@ -44,5 +45,10 @@ class JavaController extends Controller
         //     "result": "success",
         //     "message": "S5 082228988857 Akan diproses"
         // }
+
+        // Update table if succes
+        DB::connection('mysql')->table('transaction')
+        ->where('tr_id', $json_data->trxid_api)
+        ->update(['status' => 'paid']);
     }
 }

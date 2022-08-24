@@ -19,8 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('java/isi-pulsa', function(){ return csrf_token();});
-Route::post('java/isi-pulsa', [JavaController::class,'isiPulsa']);
-
-// Route::get('digiflazz/isi-pulsa', function(){ return csrf_token();});
-Route::post('digiflazz/isi-pulsa', [DigiflazzController::class,'isiPulsa']);
+Route::prefix('api/v1')->group(function () {
+    Route::post('/java/isi-pulsa', [JavaController::class,'isiPulsa']);
+    Route::post('/digiflazz/isi-pulsa', [DigiflazzController::class,'isiPulsa']);
+});
