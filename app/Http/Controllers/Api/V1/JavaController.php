@@ -10,7 +10,7 @@ class JavaController extends Controller
 {
     function isiPulsa( Request $request )
     {
-        $url = 'https://javah2h.com/api/connect/';
+        // $url = 'https://javah2h.com/api/connect/';
         $user_id = config('app.java_config.user_id');
         $key = config('app.java_config.key');
         $secret = config('app.java_config.secret');
@@ -37,26 +37,20 @@ class JavaController extends Controller
         curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        $result = curl_exec($ch);
+        $response = curl_exec($ch);
         $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
         if ($http_code != 200) {
-            DB::connection('mysql')->table('transaction')
-            ->where('ref_id', $json_data->trxid_api)
-            ->update([
-                'status' => 'cancel',
-                'response_server' => $result
-            ]);
+            return response()->json([
+                'message' => 'failed',
+                'response' => $response,
+            ], $http_code);
         } else {
-            DB::connection('mysql')->table('transaction')
-            ->where('ref_id', $json_data->trxid_api)
-            ->update(['status' => 'paid']);
+            return response()->json([
+                'message' => 'success',
+                'response' => $response,
+            ], $http_code);
         }
-        
-        // {
-        //     "result": "success",
-        //     "message": "S5 082228988857 Akan diproses"
-        // }
     }
 }

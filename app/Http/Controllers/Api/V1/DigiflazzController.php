@@ -44,43 +44,15 @@ class DigiflazzController extends Controller
         curl_close($curl);
 
         if ($http_code != 200) {
-            DB::connection('mysql')->table('transaction')
-            ->where('ref_id', $json_data->ref_id)
-            ->update([
-                'status' => 'cancel',
-                'response_server' => $response
-            ]);
+            return response()->json([
+                'message' => 'failed',
+                'response' => $response,
+            ], $http_code);
         } else {
-            $result = json_decode($response);
-            if ($result->data->status == 0) {
-                DB::connection('mysql')->table('transaction')
-                ->insert([
-                    'user_id' => '3',
-                    'phone' => $result->data->hp,
-                    'ref_id' => $json_data->ref_id,
-                    'product_code' => $json_data->pulsa_code,
-                    'tipe' => 'pulsa',
-                    'price' => $result->data->price,
-                    'status' => 'pending',
-                    'supplier_id' => '2',
-                    'response_server' => $response,
-                    'server' => '2',
-                ]);
-            } else if ( $result->data->status == 1 ) {
-                DB::connection('mysql')->table('transaction')
-                ->where('ref_id', $json_data->ref_id)
-                ->update([
-                    'status' => 'paid',
-                    'response_server' => $response
-                ]);
-            } else {
-                DB::connection('mysql')->table('transaction')
-                ->where('ref_id', $json_data->ref_id)
-                ->update([
-                    'status' => 'cancel',
-                    'response_server' => $response
-                ]);
-            }
+            return response()->json([
+                'message' => 'success',
+                'response' => $response,
+            ], $http_code);
         }
     }
 }
