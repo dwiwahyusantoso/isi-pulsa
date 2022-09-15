@@ -54,5 +54,7 @@ class DigiflazzController extends Controller
                 'response' => $response,
             ], $http_code);
         }
+
+        $a = 'halo tes';
     }
 }
